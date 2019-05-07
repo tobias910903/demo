@@ -1,0 +1,1 @@
+document.write("index.js_______1 加载完成<br>");

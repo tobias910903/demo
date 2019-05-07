@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>socket.io 聊天室测试</title>
+</head>
+<body>
+
+<!-- 在线人数 -->
+<h3>当前在线人数：<span id="user_num"></span></h3>
+
+<!-- send message -->
+<form>
+  <input type="text" id="text" />
+  <button>发送消息</button>
+</form>
+
+<!-- messageBox -->
+<ul id="message_box"></ul>
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript">
+  $(function () {
+    var socket = io('http://10.32.23.231:66');
+    var userName = Math.ceil(Math.random() * 100);
+    
+    $('form').submit(function(){
+		if($('#text').val()){
+			socket.emit('msg', "用户" + userName +"："+ $('#text').val());
+			$('#text').val('');
+		}
+		return false;
+    });
+
+    socket.on('gg', function(text){
+      $('#message_box').append("<li>"+ text +"</li>");
+    });
+
+    socket.on('userNum', function(num){
+      $('#user_num').text(num);
+    });
+  });
+</script>
+</body>
+</html>

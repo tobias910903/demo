@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>JS导出ZIP</title>
+</head>
+
+<body>
+<button id="toZip">导出ZIP</button>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.1/jquery.min.js"></script>
+<script src="jszip.min.js"></script>
+<script src="FileSaver.js"></script>
+<script>
+    // https://github.com/Stuk/jszip
+
+    $(function(){
+        $("#toZip").click(function(){
+            let zip = new JSZip();
+            zip.file("Hello.txt", "Hello World\n");
+
+            let img = zip.folder("images");
+            let imgData = ""; // 可以通过canvas将图片转为base64，不同源的图片会出现跨域问题，需要用其他方法解决
+
+            img.file("komorebi.jpg", imgData, {base64: true}); // komorebi.jpg 为打包之后图片的名字
+            zip.generateAsync({type:"blob"}).then(function(content) {
+                // see FileSaver.js
+                saveAs(content, "komorebi.zip");
+            });
+        });
+	});
+</script>
+</body>
+</html>
+

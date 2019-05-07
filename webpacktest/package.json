@@ -1,0 +1,26 @@
+{
+  "name": "webpacktest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "entry.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "webpack": "webpack --progressr --color"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.0.6",
+    "image-webpack-loader": "^4.2.0",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.20.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "webpack-cli": "^3.1.2"
+  }
+}

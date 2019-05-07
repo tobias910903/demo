@@ -1,0 +1,13 @@
+﻿Python安装
+1.安装Python-3.7.0   地址：https://share.weiyun.com/5hmm9RO
+2.安装JetBrains PyCharm  地址：https://share.weiyun.com/5sAs65P
+3.PyCharm安装依赖的方法
+- python依赖安装1.png
+- python依赖安装2.png
+
+
+
+Python连接Mysql获取数据
+1.Python安装
+2.安装两个依赖 pip 、 pymysql（python2.x中用的 mysqldb，但是在python3.x中已经不支持那个组件，取而代之的是 pymysql）  || 数据库用的是本地的Mysql
+3.数据库截图.png

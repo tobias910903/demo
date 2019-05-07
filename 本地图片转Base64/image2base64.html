@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>本地图片转base64</title>
+    <style>
+        .part{ width: 30%; margin-right: 3%; float: left; }
+        @media screen and (max-width: 1200px) {
+            .part{ width: 100%; margin-right: 0; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #cccccc;}
+            .part:nth-of-type(3){ border-bottom: none;}
+        }
+    </style>
+</head>
+
+<body>
+<div class="part">
+    <h3>选择图片：</h3>
+    <p><input type="file" id="imgUpload" onchange="funStart()"></p>
+</div>
+
+<div class="part">
+    <h3>Base64数据：</h3>
+    <p><textarea id="context" style="width: 100%; height: 400px; outline: none; border: 1px solid #cccccc;"></textarea></p>
+    <p><button onclick="funCopyData()">复制</button></p>
+    <p id="len">Base64长度：</p>
+</div>
+
+<div class="part">
+    <h3>图片预览：</h3>
+    <p><img id="imgShow" src="" alt="" style="max-width: 300px;"></p>
+</div>
+
+<script>
+    /* 转换 */
+    function funStart() {
+
+        if(typeof FileReader === 'undefined'){
+            alert("您的浏览器不支持图片上传，请升级您的浏览器");
+            return false;
+        }
+
+        var img = document.getElementById('imgUpload'); // file id
+        var imgFile = new FileReader();
+        var isImg = false;
+        var formatArr = ["png","gif","jpeg","jpg"];  // 上传文件的格式过滤
+        var allowMaxSize = 2100000; // 上传图片最大值(单位字节)（ 2 M = 2097152 B ）超过2M上传失败
+        var imgFormat = img.value.split("."); // 获取文件的后缀名
+        imgFormat = imgFormat[imgFormat.length - 1];
+
+        for(var i=0; i<formatArr.length; i++){
+            if(imgFormat === formatArr[i]){
+                isImg = true;
+                break;
+            }
+        }
+
+        if(!isImg){ // 格式不支持
+            alert("文件格式必须为：" + formatArr.toString());
+            return;
+        }
+
+        imgFile.readAsDataURL(img.files[0]);  
+        imgFile.onload = function () {  
+            var imgData; // base64数据
+            var imgDataLength; // base64长度
+
+            /* 不截取base64码部分（可选可不选，需要与后台沟通） */
+            imgData = this.result;
+            imgDataLength = imgData.length;
+            document.getElementById('imgShow').setAttribute('src', imgData);
+            
+            /* 截取base64码部分（可选可不选，需要与后台沟通） */
+            // imgData = this.result.split(",")[1];
+            // imgDataLength = imgData.substring(imgData.indexOf(",") + 1).length; 
+            // document.getElementById('imgShow').setAttribute('src', "data:image/jpeg;base64," + imgData);
+            
+
+            if (allowMaxSize !== 0 && allowMaxSize < imgDataLength) {
+                alert( '上传失败，请上传不大于2M的图片！');
+                return false;
+            }else{
+                // 执行操作
+                document.getElementById('context').value = imgData;
+                document.getElementById('len').innerHTML += imgDataLength;
+            }
+        };
+
+        // 开始读取
+        imgFile.onloadstart = function(){
+
+        };
+
+        // 读取中
+        imgFile.onprogress = function(){
+
+        };
+
+        // 中断
+        imgFile.onabort = function(){
+
+        };
+
+        // 出错
+        imgFile.error = function(){
+
+        };
+		
+    }
+  
+    /* 复制 */  
+    function funCopyData() {
+        document.getElementById('context').select(); // 选择对象
+        var cpd = document.execCommand("Copy"); // 执行浏览器复制命令
+        cpd ? alert("复制成功") : alert('复制失败');
+    }  
+</script>  
+</body>
+</html>
