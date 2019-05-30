@@ -1,6 +1,6 @@
-# vuecli
+# bugout-h5
 
-> A Vue.js project
+> bugout h5
 
 ## Build Setup
 
