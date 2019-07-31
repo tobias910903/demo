@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>JS手机端下拉刷新上拉加载</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="pulltorefresh.css" />
+		<script src="iscroll.js"></script>
+		<script src="pulltorefresh.js"></script>
+
+	</head>
+
+	<body>
+		<div id="komoWrapper">
+			<div class="komo-scroll-box"></div>
+		</div>
+		<script>
+			refresher.init({
+				id: "komoWrapper",
+				pullDownAction: refreshData,
+				pullUpAction: loadData
+			});
+
+			var generatedCount = 0;
+			// 上拉刷新
+			function refreshData() {
+				generatedCount = 0;
+				setTimeout(function() {
+					var el, li, i;
+					el = document.querySelector("#komoWrapper .komo-scroll-box");
+					el.innerHTML = '';
+					for (i = 0; i < 11; i++) {
+						li = document.createElement('p');
+						li.appendChild(document.createTextNode('async row ' + (++generatedCount)));
+						el.insertBefore(li, el.childNodes[0])
+					}
+					komoWrapper.refresh()
+				}, 1000);
+			}
+
+			// 下拉加载
+			function loadData() {
+				setTimeout(function() {
+					var el, li, i;
+					el = document.querySelector("#komoWrapper .komo-scroll-box");
+					for (i = 0; i < 5; i++) {
+						li = document.createElement('p');
+						li.appendChild(document.createTextNode('async row ' + (++generatedCount)));
+						el.appendChild(li, el.childNodes[0])
+					}
+					komoWrapper.refresh()
+				}, 1000);
+			}
+
+			// 默认加载数据
+			refreshData();
+		</script>
+	</body>
+</html>
