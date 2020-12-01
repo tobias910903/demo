@@ -17,12 +17,12 @@
 <!-- messageBox -->
 <ul id="message_box"></ul>
 
-<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 
 <script type="text/javascript">
   $(function () {
-    var socket = io('http://10.32.23.231:66');
+    var socket = io('http://127.0.0.1:66');
     var userName = Math.ceil(Math.random() * 100);
     
     $('form').submit(function(){
